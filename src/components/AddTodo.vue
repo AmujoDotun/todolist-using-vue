@@ -1,6 +1,6 @@
 <template>
     <div>
-        <form action="">
+        <form @submit="addTodo">
             <input type="text" name="title" placeholder="Add Todo ....">
         <input type="submit" value="Submit" class="btn">
         </form>
@@ -9,7 +9,24 @@
 
 <script>
 export default {
-    name:"AddTodo"
+    name:"AddTodo",
+    data(){
+        return {
+            title: ''
+        }
+    },
+    methods:{
+        addTodo(e){
+            e.preventDefault();
+            const newTodo ={
+                title: this.title,
+                completed: false
+            }
+            //Send up to parent
+            this.$emit('add-todo', newTodo);
+            this.title ='';
+        }
+    }
 }
 </script>
 
